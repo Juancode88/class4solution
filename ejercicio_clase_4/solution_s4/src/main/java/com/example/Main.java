@@ -1,54 +1,40 @@
 package com.example;
+import java.util.ArrayList;
  
 public class Main {
     public static void main(String[] args) {
-         /* Create products */
-         Producto producto1 = new Producto("Laptop", 999.99, 10);
-         Producto producto2 = new Producto("Mouse", 25.50, 50);
-         Producto producto3 = new Producto("Teclado", 45.75, 20);
-         Producto producto4 = new Producto("Monitor", 199.99, 5);
-         
-         /* Create store */
-         Tienda tienda = new Tienda();
- 
-         /*Adding products to store */
-         tienda.agregarProducto(producto1);
-         tienda.agregarProducto(producto2);
-         tienda.agregarProducto(producto3);
-         tienda.agregarProducto(producto4);
- 
-         /* Product information */
-         System.out.println("Información de todos los productos:");
-         for (Producto producto : tienda.productos) { 
-            producto.mostrarInformacion();
-            System.out.println();
+        /* Create products */
+        Producto producto1 = new Producto("Laptop", 999.99, 20);
+        Producto producto2 = new Producto("Smartphone", 499.99, 50);
+        Producto producto3 = new Producto("Tablet", 299.99, 5);
+
+        /* Create store */
+        Tienda tienda = new Tienda();
+
+        /* Adding products */
+        tienda.agregarProducto(producto1);
+        tienda.agregarProducto(producto2);
+        tienda.agregarProducto(producto3);
+
+        /* Product search */
+        Producto productoEncontrado = tienda.buscarProductoPorNombre("Smartphone");
+        if (productoEncontrado != null) {
+            productoEncontrado.mostrarInformacion();
+        } else {
+            System.out.println("Producto no encontrado.");
         }
- 
-         /* Search product */
-         String nombreBuscado = "Teclado";
-         Producto productoEncontrado = tienda.buscarProductoPorNombre(nombreBuscado);
-         if (productoEncontrado != null) {
-             System.out.println("Producto encontrado:");
-             productoEncontrado.mostrarInformacion();
-         } else {
-             System.out.println("Producto no encontrado: " + nombreBuscado);
-         }
- 
-         /*Update stock */
-         System.out.println("\nActualizando stock del Monitor:");
-         producto4.actualizarStock(3); // Adding 3 more monitors
-         producto4.mostrarInformacion();
- 
-         /*Check bad update stock */
-         System.out.println("\nIntentando actualizar stock del Mouse con cantidad negativa:");
-         producto2.actualizarStock(-5); // This should show an error message
- 
-         /* Calculate storage value */
-         double valorTotalInventario = tienda.calcularValorTotalInventario();
-         System.out.printf("Valor total del inventario: %.2f\n", valorTotalInventario);
- 
-         /* products with lower stock */
-         int limiteStockBajo = 10;
-         tienda.mostrarProductosConStockBajo(limiteStockBajo);
-    } 
+
+        /* Calculate the  total storage  */
+        double valorTotalInventario = tienda.calcularValorTotalInventario();
+        System.out.println("Valor total del inventario: $" + valorTotalInventario);
+
+        /* Info lower stock */
+        tienda.mostrarProductosConStockBajo(10);
+        
+        /* Update stock product */
+        producto3.actualizarStock(10);
+        
+        /* After update */
+        tienda.mostrarProductosConStockBajo(10);
+    }
 }

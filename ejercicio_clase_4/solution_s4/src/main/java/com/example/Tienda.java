@@ -1,5 +1,6 @@
+package com.example;
 import java.util.ArrayList;
-
+  
 public class Tienda {
     private ArrayList<Producto> productos;
 
